@@ -1,0 +1,859 @@
+    <script>
+        let tab_num = 1;
+    </script>
+    <style>
+        /*@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");*/
+        /*@import url("https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css");*/
+        @import url("https://armeyka.abelikov5.ru/photo/lib/bootstrap.css");
+
+        .rating-loading {
+            width: 25px;
+            height: 25px;
+            font-size: 0px;
+            color: #fff;
+            border: none;
+        }
+
+        /*
+     * Stars
+     */
+        .rating-gly {
+            font-family: 'Glyphicons Halflings';
+        }
+
+        .rating-gly-star {
+            font-family: 'Glyphicons Halflings';
+            padding-left: 2px;
+        }
+
+        .rating-gly-star .rating-stars:before {
+            padding-left: 2px;
+        }
+
+        .rating-lg .rating-gly-star,
+        .rating-lg .rating-gly-star .rating-stars:before {
+            padding-left: 4px;
+        }
+
+        .rating-xl .rating-gly-star,
+        .rating-xl .rating-gly-star .rating-stars:before {
+            padding-left: 2px;
+        }
+
+        .rating-active {
+            cursor: default;
+        }
+
+        .rating-disabled {
+            cursor: not-allowed;
+        }
+
+        .font_size_1pc {
+            font-size: 1%;
+        }
+
+        .rating-uni {
+            font-size: 1.2em;
+            margin-top: -5px;
+        }
+
+        .rating-container {
+            position: relative;
+            vertical-align: middle;
+            display: inline-block;
+            color: #e3e3e3;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .rating-container:before {
+            content: attr(data-content);
+        }
+
+        .rating-container .rating-stars {
+            position: absolute;
+            left: 0;
+            top: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #ffd600;
+            transition: all 0.25s ease-out;
+            -o-transition: all 0.25s ease-out;
+            -moz-transition: all 0.25s ease-out;
+            -webkit-transition: all 0.25s ease-out;
+        }
+
+        .rating-container .rating-stars:before {
+            content: attr(data-content);
+            text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+        }
+
+        .rating-container-rtl {
+            position: relative;
+            vertical-align: middle;
+            display: inline-block;
+            overflow: hidden;
+            color: #fde16d;
+        }
+
+        .rating-container-rtl:before {
+            content: attr(data-content);
+            text-shadow: 0 0 1px rgba(0, 0, 0, 0.7);
+        }
+
+        .rating-container-rtl .rating-stars {
+            position: absolute;
+            left: 0;
+            top: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            color: #e3e3e3;
+            transition: all 0.25s ease-out;
+            -o-transition: all 0.25s ease-out;
+            -moz-transition: all 0.25s ease-out;
+            -webkit-transition: all 0.25s ease-out;
+        }
+
+        .rating-container-rtl .rating-stars:before {
+            content: attr(data-content);
+        }
+
+
+        /**
+     * Rating sizes
+     */
+
+        .rating-xl {
+            font-size: 4.89em;
+        }
+
+        .rating-lg {
+            font-size: 3.91em;
+        }
+
+        .rating-md {
+            font-size: 3.13em;
+        }
+
+        .rating-sm {
+            font-size: 2.5em;
+        }
+
+        .rating-xs {
+            font-size: 2em;
+        }
+
+
+        /**
+     * Clear rating button
+     */
+
+        .star-rating .clear-rating,
+        .star-rating-rtl .clear-rating {
+            color: #aaa;
+            cursor: not-allowed;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 60%;
+        }
+
+        .clear-rating-active {
+            cursor: pointer !important;
+        }
+
+        .clear-rating-active:hover {
+            color: #843534;
+        }
+
+
+
+        /**
+     * Caption
+     */
+
+        .star-rating .caption,
+        .star-rating-rtl .caption {
+            color: #999;
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 55%;
+        }
+
+        .star-rating .caption {
+            padding-left: 5px;
+        }
+
+        .star-rating-rtl .caption {
+            padding-right: 5px;
+        }
+
+        .container_sat {
+            width: 450px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .next_lesson {
+            background-color: #ffd50025;
+            color: #0000001f;
+            line-height: 60px;
+            width: 100%;
+            height: 100%;
+            border: none;
+            z-index: 20;
+            font-weight: 700;
+            text-align: center;
+            transition: .8s;
+        }
+
+        .next_lesson_underline {
+            position: absolute;
+            z-index: -1;
+            border: 1px solid #ffd50025;
+            opacity: 0;
+            width: 256px;
+            height: 60px;
+            left: 10px;
+            top: 10px;
+            transition: 1.2s;
+        }
+
+        .next_lesson_active {
+            background-color: #ffd500;
+            color: #000000e3;
+        }
+
+        .next_lesson_underline_active {
+            border: 1px solid #ffd500 !important;
+            opacity: 1!important;
+        }
+
+        .wrap_next_lesson {
+            position: relative;
+            width: 256px;
+            height: 60px;
+            margin-top: 20px;
+            cursor: pointer;
+            margin-bottom: 50px;
+        }
+
+        .container_sat textarea {
+            margin-top: 10px;
+        }
+
+        .wrap_form_sat {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .on_vointed {
+            width: 260px;
+            opacity: .8;
+            height: 240px;
+            position: absolute;
+            z-index: 99;
+            background-color: #fff;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .d_none {
+            display: none;
+        }
+
+        @media screen and (max-width: 450px) {
+            .container_sat {
+                width: 240px;
+            }
+        }
+        @media screen and (max-width: 1200px) {
+            .t-col_8 {
+                max-width:  800px!important;
+            }
+        }
+    </style>
+    <div class="container_sat">
+
+    </div>
+
+    <script>
+        let block_sat = document.querySelector('.t807');
+        let form_inner_html = '<div class="on_vointed d_none"> <br><br> Вы уже проголосовали </div> <form id="fld"> <input id="question1" class="rating rating-loading"> <input type="checkbox" id="theory" /> Не хватило теории <br> <input type="checkbox" id="practic" /> Не хватило практики <br> <textarea id="feedback" style="width:250px; height:100px;" name="text" placeholder="помогите сделать курс еще лучше, оставьте свой фидбек"></textarea><br> <div class="wrap_next_lesson"> <div class="next_lesson">Следующий урок</div> <div class="next_lesson_underline"></div> </div> </form>';
+        if (block_sat) {
+
+            document.querySelector('.container_sat').innerHTML = form_inner_html;
+            //убираем не нужные блоки:
+            block_sat.classList.add('d_none');
+            block_sat.parentElement.nextSibling.classList.add('d_none')
+            block_sat.parentElement.nextSibling.nextSibling.classList.add('d_none')
+
+            init_scipt();
+        }
+
+        function init_scipt() {
+            let cur_star;
+            (function ($) {
+                "use strict";
+                var DEFAULT_MIN = 0, DEFAULT_MAX = 10, DEFAULT_STEP = 1,
+                    isEmpty = function (value, trim) {
+                        return value === null || value === undefined || value.length === 0 || (trim && $.trim(value) === '');
+                    },
+                    addCss = function ($el, css) {
+                        $el.removeClass(css).addClass(css);
+                    },
+                    validateAttr = function ($input, vattr, options) {
+                        var chk = isEmpty($input.data(vattr)) ? $input.attr(vattr) : $input.data(vattr);
+                        return chk ? chk : options[vattr];
+                    },
+                    getDecimalPlaces = function (num) {
+                        var match = ('' + num).match(/(?:\.(\d+))?(?:[eE]([+-]?\d+))?$/);
+                        return !match ? 0 : Math.max(0, (match[1] ? match[1].length : 0) - (match[2] ? +match[2] : 0));
+                    },
+                    applyPrecision = function (val, precision) {
+                        return parseFloat(val.toFixed(precision));
+                    },
+                    Rating = function (element, options) {
+                        this.$element = $(element);
+                        this.init(options);
+                    };
+
+                Rating.prototype = {
+                    constructor: Rating,
+                    _parseAttr: function (vattr, options) {
+                        var self = this, $el = self.$element;
+                        if ($el.attr('type') === 'range' || $el.attr('type') === 'number') {
+                            var val = validateAttr($el, vattr, options), chk, final;
+                            switch (vattr) {
+                                case 'min':
+                                    chk = DEFAULT_MIN;
+                                    break;
+                                case 'max':
+                                    chk = DEFAULT_MAX;
+                                    break;
+                                default:
+                                    chk = DEFAULT_STEP;
+                            }
+                            final = isEmpty(val) ? chk : val;
+                            return parseFloat(final);
+                        }
+                        return parseFloat(options[vattr]);
+                    },
+                    listenClick: function ($el, callback) {
+                        $el.on('click touchstart', function (e) {
+                            e.stopPropagation();
+                            e.preventDefault();
+                            if (e.handled !== true) {
+                                callback(e);
+                                e.handled = true;
+                            } else {
+                                return false;
+                            }
+                        });
+                    },
+                    setDefault: function (key, val) {
+                        var self = this;
+                        if (isEmpty(self[key])) {
+                            self[key] = val;
+                        }
+                    },
+                    getPosition: function (e) {
+                        var pageX = e.pageX || e.originalEvent.touches[0].pageX;
+                        return pageX - this.$rating.offset().left;
+                    },
+                    listen: function () {
+                        var self = this, pos, out;
+                        self.initTouch();
+                        self.listenClick(self.$rating, function (e) {
+                            if (self.inactive) {
+                                return false;
+                            }
+                            pos = self.getPosition(e);
+                            self.setStars(pos);
+                            self.$element.trigger('change').trigger('rating.change', [self.$element.val(), self.$caption.html()]);
+                            self.starClicked = true;
+                        });
+                        self.$rating.on("mousemove", function (e) {
+                            if (!self.hoverEnabled || self.inactive) {
+                                return;
+                            }
+                            self.starClicked = false;
+                            pos = self.getPosition(e);
+                            out = self.calculate(pos);
+                            self.toggleHover(out);
+                            self.$element.trigger('rating.hover', [out.val, out.caption, 'stars']);
+                        });
+                        self.$rating.on("mouseleave", function () {
+                            if (!self.hoverEnabled || self.inactive || self.starClicked) {
+                                return;
+                            }
+                            out = self.cache;
+                            self.toggleHover(out);
+                            self.$element.trigger('rating.hoverleave', ['stars']);
+                        });
+                        self.$clear.on("mousemove", function () {
+                            if (!self.hoverEnabled || self.inactive || !self.hoverOnClear) {
+                                return;
+                            }
+                            self.clearClicked = false;
+                            var caption = '<span class="' + self.clearCaptionClass + '">' + self.clearCaption + '</span>',
+                                val = self.clearValue, width = self.getWidthFromValue(val);
+                            out = { caption: caption, width: width, val: val };
+                            self.toggleHover(out);
+                            self.$element.trigger('rating.hover', [val, caption, 'clear']);
+                        });
+                        self.$clear.on("mouseleave", function () {
+                            if (!self.hoverEnabled || self.inactive || self.clearClicked || !self.hoverOnClear) {
+                                return;
+                            }
+                            out = self.cache;
+                            self.toggleHover(out);
+                            self.$element.trigger('rating.hoverleave', ['clear']);
+                        });
+                        self.listenClick(self.$clear, function () {
+                            if (!self.inactive) {
+                                self.clear();
+                                self.clearClicked = true;
+                            }
+                        });
+                        $(self.$element[0].form).on("reset", function () {
+                            if (!self.inactive) {
+                                self.reset();
+                            }
+                        });
+                    },
+                    destroy: function () {
+                        var self = this, $el = self.$element;
+                        if (!isEmpty(self.$container)) {
+                            self.$container.before($el).remove();
+                        }
+                        $.removeData($el.get(0));
+                        $el.off('rating').removeClass('hide');
+                    },
+                    create: function (options) {
+                        var self = this, $el = self.$element;
+                        options = options || self.options || {};
+                        self.destroy();
+                        $el.rating(options);
+                    },
+                    setTouch: function (e, flag) {
+                        var self = this, isTouchCapable = 'ontouchstart' in window ||
+                            (window.DocumentTouch && document instanceof window.DocumentTouch);
+                        if (!isTouchCapable || self.inactive) {
+                            return;
+                        }
+                        var ev = e.originalEvent, touches = ev.touches || ev.changedTouches, pos = self.getPosition(touches[0]);
+                        if (flag) {
+                            self.setStars(pos);
+                            self.$element.trigger('change').trigger('rating.change', [self.$element.val(), self.$caption.html()]);
+                            self.starClicked = true;
+                        } else {
+                            var out = self.calculate(pos), caption = out.val <= self.clearValue ? self.fetchCaption(self.clearValue) : out.caption,
+                                w = self.getWidthFromValue(self.clearValue),
+                                width = out.val <= self.clearValue ? (self.rtl ? (100 - w) + '%' : w + '%') : out.width;
+                            self.$caption.html(caption);
+                            self.$stars.css('width', width);
+                        }
+                    },
+                    initTouch: function () {
+                        var self = this;
+                        self.$rating.on("touchstart touchmove touchend", function (e) {
+                            var flag = (e.type === "touchend");
+                            self.setTouch(e, flag);
+                        });
+                    },
+                    initSlider: function (options) {
+                        var self = this;
+                        if (isEmpty(self.$element.val())) {
+                            self.$element.val(0);
+                        }
+                        self.initialValue = self.$element.val();
+                        self.setDefault('min', self._parseAttr('min', options));
+                        self.setDefault('max', self._parseAttr('max', options));
+                        self.setDefault('step', self._parseAttr('step', options));
+                        if (isNaN(self.min) || isEmpty(self.min)) {
+                            self.min = DEFAULT_MIN;
+                        }
+                        if (isNaN(self.max) || isEmpty(self.max)) {
+                            self.max = DEFAULT_MAX;
+                        }
+                        if (isNaN(self.step) || isEmpty(self.step) || self.step === 0) {
+                            self.step = DEFAULT_STEP;
+                        }
+                        self.diff = self.max - self.min;
+                    },
+                    init: function (options) {
+                        var self = this, $el = self.$element, defaultStar, starVal, starWidth;
+                        self.options = options;
+                        $.each(options, function (key, value) {
+                            self[key] = value;
+                        });
+                        self.starClicked = false;
+                        self.clearClicked = false;
+                        self.initSlider(options);
+                        self.checkDisabled();
+                        self.setDefault('rtl', $el.attr('dir'));
+                        if (self.rtl) {
+                            $el.attr('dir', 'rtl');
+                        }
+                        defaultStar = (self.glyphicon) ? '\ue006' : '\u2605';
+                        self.setDefault('symbol', defaultStar);
+                        self.setDefault('clearButtonBaseClass', 'clear-rating');
+                        self.setDefault('clearButtonActiveClass', 'clear-rating-active');
+                        self.setDefault('clearValue', self.min);
+                        addCss($el, 'form-control hide');
+                        self.$clearElement = isEmpty(options.clearElement) ? null : $(options.clearElement);
+                        self.$captionElement = isEmpty(options.captionElement) ? null : $(options.captionElement);
+                        if (self.$rating === undefined && self.$container === undefined) {
+                            self.$rating = $(document.createElement("div")).html('<div class="rating-stars"></div>');
+                            self.$container = $(document.createElement("div"));
+                            self.$container.before(self.$rating).append(self.$rating);
+                            $el.before(self.$container).appendTo(self.$rating);
+                        }
+                        self.$stars = self.$rating.find('.rating-stars');
+                        self.generateRating();
+                        self.$clear = !isEmpty(self.$clearElement) ? self.$clearElement : self.$container.find('.' + self.clearButtonBaseClass);
+                        self.$caption = !isEmpty(self.$captionElement) ? self.$captionElement : self.$container.find(".caption");
+                        self.setStars();
+                        self.listen();
+                        if (self.showClear) {
+                            self.$clear.attr({ "class": self.getClearClass() });
+                        }
+                        starVal = $el.val();
+                        starWidth = self.getWidthFromValue(starVal);
+                        self.cache = {
+                            caption: self.$caption.html(),
+                            width: (self.rtl ? (100 - starWidth) : starWidth) + '%',
+                            val: starVal
+                        };
+                        $el.removeClass('rating-loading');
+                    },
+                    checkDisabled: function () {
+                        var self = this;
+                        self.disabled = validateAttr(self.$element, 'disabled', self.options);
+                        self.readonly = validateAttr(self.$element, 'readonly', self.options);
+                        self.inactive = (self.disabled || self.readonly);
+                    },
+                    getClearClass: function () {
+                        return this.clearButtonBaseClass + ' ' + ((this.inactive) ? '' : this.clearButtonActiveClass);
+                    },
+                    generateRating: function () {
+                        var self = this, clear = self.renderClear(), caption = self.renderCaption(),
+                            css = (self.rtl) ? 'rating-container-rtl' : 'rating-container',
+                            stars = self.getStars();
+                        if (self.glyphicon) {
+                            css += (self.symbol === '\ue006' ? ' rating-gly-star' : ' rating-gly') + self.ratingClass;
+                        } else {
+                            css += isEmpty(self.ratingClass) ? ' rating-uni' : ' ' + self.ratingClass;
+                        }
+                        self.$rating.attr('class', css);
+                        self.$rating.attr('data-content', stars);
+                        self.$stars.attr('data-content', stars);
+                        css = self.rtl ? 'star-rating-rtl' : 'star-rating';
+                        self.$container.attr('class', css + ' rating-' + self.size);
+                        self.$container.removeClass('rating-active rating-disabled');
+                        if (self.inactive) {
+                            self.$container.addClass('rating-disabled');
+                        }
+                        else {
+                            self.$container.addClass('rating-active');
+                        }
+                        if (isEmpty(self.$caption)) {
+                            if (self.rtl) {
+                                self.$container.prepend(caption);
+                            } else {
+                                self.$container.append(caption);
+                            }
+                        }
+                        if (isEmpty(self.$clear)) {
+                            if (self.rtl) {
+                                self.$container.append(clear);
+                            }
+                            else {
+                                self.$container.prepend(clear);
+                            }
+                        }
+                        if (!isEmpty(self.containerClass)) {
+                            addCss(self.$container, self.containerClass);
+                        }
+                    },
+                    getStars: function () {
+                        var self = this, numStars = self.stars, stars = '', i;
+                        for (i = 1; i <= numStars; i++) {
+                            stars += self.symbol;
+                        }
+                        return stars;
+                    },
+                    renderClear: function () {
+                        var self = this, css;
+                        if (!self.showClear) {
+                            return '';
+                        }
+                        css = self.getClearClass();
+                        if (!isEmpty(self.$clearElement)) {
+                            addCss(self.$clearElement, css);
+                            self.$clearElement.attr({ "title": self.clearButtonTitle }).html(self.clearButton);
+                            return '';
+                        }
+                        return '<div class="' + css + '" title="' + self.clearButtonTitle + '">' + self.clearButton + '</div>';
+                    },
+                    renderCaption: function () {
+                        var self = this, val = self.$element.val(), html;
+                        if (!self.showCaption) {
+                            return '';
+                        }
+                        html = self.fetchCaption(val);
+                        if (!isEmpty(self.$captionElement)) {
+                            addCss(self.$captionElement, 'caption');
+                            self.$captionElement.html(html);
+                            return '';
+                        }
+                        return '<div class="caption">' + html + '</div>';
+                    },
+                    fetchCaption: function (rating) {
+                        var self = this, val = parseFloat(rating), css, cap, capVal, cssVal,
+                            vCap = self.starCaptions, vCss = self.starCaptionClasses, caption;
+                        cssVal = typeof vCss === "function" ? vCss(val) : vCss[val];
+                        capVal = typeof vCap === "function" ? vCap(val) : vCap[val];
+                        cap = isEmpty(capVal) ? self.defaultCaption.replace(/\{rating\}/g, val) : capVal;
+                        css = isEmpty(cssVal) ? self.clearCaptionClass : cssVal;
+                        caption = (val === self.clearValue) ? self.clearCaption : cap;
+                        return '<span class="' + css + '">' + caption + '</span>';
+                    },
+                    getWidthFromValue: function (val) {
+                        var self = this, min = self.min, max = self.max;
+                        if (val <= min || min === max) {
+                            return 0;
+                        }
+                        if (val >= max) {
+                            return 100;
+                        }
+                        return (val - min) * 100 / (max - min);
+                    },
+                    getValueFromPosition: function (pos) {
+                        var self = this, precision = getDecimalPlaces(self.step),
+                            val, factor, maxWidth = self.$rating.width();
+                        factor = (self.diff * pos) / (maxWidth * self.step);
+                        factor = self.rtl ? Math.floor(factor) : Math.ceil(factor);
+                        val = applyPrecision(parseFloat(self.min + factor * self.step), precision);
+                        val = Math.max(Math.min(val, self.max), self.min);
+                        return self.rtl ? (self.max - val) : val;
+                    },
+                    toggleHover: function (out) {
+                        var self = this, w, width, caption;
+                        if (self.hoverChangeCaption) {
+                            caption = out.val <= self.clearValue ? self.fetchCaption(self.clearValue) : out.caption;
+                            self.$caption.html(caption);
+                        }
+                        if (self.hoverChangeStars) {
+                            w = self.getWidthFromValue(self.clearValue);
+                            width = out.val <= self.clearValue ? (self.rtl ? (100 - w) + '%' : w + '%') : out.width;
+                            self.$stars.css('width', width);
+                        }
+                    },
+                    calculate: function (pos) {
+                        var self = this, defaultVal = isEmpty(self.$element.val()) ? 0 : self.$element.val(),
+                            val = arguments.length ? self.getValueFromPosition(pos) : defaultVal,
+                            caption = self.fetchCaption(val), width = self.getWidthFromValue(val);
+                        if (self.rtl) {
+                            width = 100 - width;
+                        }
+                        width += '%';
+                        cur_star = val;
+                        return { caption: caption, width: width, val: val };
+                    },
+                    setStars: function (pos) {
+                        var self = this, out = arguments.length ? self.calculate(pos) : self.calculate();
+                        self.$element.val(out.val);
+                        self.$stars.css('width', out.width);
+                        self.$caption.html(out.caption);
+                        self.cache = out;
+                        activate_next_lesson();
+                    },
+                    clear: function () {
+                        var self = this,
+                            title = '<span class="' + self.clearCaptionClass + '">' + self.clearCaption + '</span>';
+                        self.$stars.removeClass('rated');
+                        if (!self.inactive) {
+                            self.$caption.html(title);
+                        }
+                        self.$element.val(self.clearValue);
+                        self.setStars();
+                        self.$element.trigger('rating.clear');
+                    },
+                    reset: function () {
+                        var self = this;
+                        self.$element.val(self.initialValue);
+                        self.setStars();
+                        self.$element.trigger('rating.reset');
+                    },
+                    update: function (val) {
+                        var self = this;
+                        if (!arguments.length) {
+                            return;
+                        }
+                        self.$element.val(val);
+                        self.setStars();
+                    },
+                    refresh: function (options) {
+                        var self = this;
+                        if (!arguments.length) {
+                            return;
+                        }
+                        self.$rating.off('rating');
+                        if (self.$clear !== undefined) {
+                            self.$clear.off();
+                        }
+                        self.init($.extend(self.options, options));
+                        if (self.showClear) {
+                            self.$clear.show();
+                        } else {
+                            self.$clear.hide();
+                        }
+                        if (self.showCaption) {
+                            self.$caption.show();
+                        } else {
+                            self.$caption.hide();
+                        }
+                        self.$element.trigger('rating.refresh');
+                    }
+                };
+
+                $.fn.rating = function (option) {
+                    var args = Array.apply(null, arguments);
+                    args.shift();
+                    return this.each(function () {
+                        var $this = $(this),
+                            data = $this.data('rating'),
+                            options = typeof option === 'object' && option;
+
+                        if (!data) {
+                            $this.data('rating',
+                                (data = new Rating(this, $.extend({}, $.fn.rating.defaults, options, $(this).data()))));
+                        }
+
+                        if (typeof option === 'string') {
+                            data[option].apply(data, args);
+                        }
+                    });
+                };
+
+                $.fn.rating.defaults = {
+                    stars: 5,
+                    glyphicon: true,
+                    symbol: null,
+                    ratingClass: '',
+                    disabled: false,
+                    readonly: false,
+                    rtl: false,
+                    size: 'lg',
+                    showClear: true,
+                    showCaption: true,
+                    defaultCaption: '{rating} Stars',
+                    starCaptions: {
+                        1: 'Ужас',
+                        2: 'Очень плохо',
+                        3: 'Слабовато',
+                        4: 'Так себе',
+                        5: 'Среднячок',
+                        6: 'На тройку',
+                        7: 'Бывает лучше',
+                        8: 'Норм',
+                        9: 'Хорошо',
+                        10: 'Великолепно'
+                    },
+                    starCaptionClasses: {
+                        // 1: 'label label-danger',
+                        // 2: 'label label-danger',
+                        // 3: 'label label-warning',
+                        // 4: 'label label-warning',
+                        // 5: 'label label-info',
+                        // 6: 'label label-info',
+                        // 7: 'label label-primary',
+                        // 8: 'label label-primary',
+                        // 9: 'label label-success',
+                        // 10: 'label label-success'
+                    },
+                    clearButton: '<i class="glyphicon glyphicon-minus-sign font_size_1pc"></i>',
+                    clearButtonTitle: 'Clear',
+                    clearButtonBaseClass: 'clear-rating',
+                    clearButtonActiveClass: 'clear-rating-active',
+                    clearCaption: 'Оцените занятие',//'Оцените занятие'
+                    clearCaptionClass: 'label label-default',
+                    clearValue: null,
+                    captionElement: null,
+                    clearElement: null,
+                    containerClass: null,
+                    hoverEnabled: true,
+                    hoverChangeCaption: true,
+                    hoverChangeStars: true,
+                    hoverOnClear: true
+                };
+
+                $.fn.rating.Constructor = Rating;
+
+                $('input.rating').addClass('rating-loading');
+
+                $(document).ready(function () {
+                    var $input = $('input.rating'), count = Object.keys($input).length;
+                    if (count > 0) {
+                        $input.rating();
+                    }
+                });
+            }(window.jQuery));
+
+            function request_send() {
+                let url_sat   = window.location.href;
+                let xpath     = "//a[contains(text(),'Следующий урок')]";
+                let next_sat  = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue.href;
+                if (!localStorage.getItem(url_sat)) {
+                    let email_sat = document.querySelector('.tlk__popup-login');//.textContent
+                    if (email_sat) {
+                        email_sat = email_sat.textContent;
+                    } else {email_sat = 'UNDEFINED';}
+                    
+                    let name_sat = document.querySelector('.t-active');
+                    if (name_sat) {
+                        name_sat = name_sat.parentNode.parentNode.parentNode.firstElementChild.textContent;
+                    } else {
+                        name_sat = 'UNDEFINED';
+                    }
+                    let star_raiting = parseInt(document.querySelector('.rating-stars').style.width);
+                    let theory = document.getElementById('theory').checked;
+                    let practic = document.getElementById('practic').checked;
+                    let feedback = document.getElementById('feedback').value;
+                    const request = new XMLHttpRequest();
+                    let url_sat  = window.location.href;
+                    localStorage.setItem(url_sat, 1);
+                    const url = "https://star-webhook.abelikov5.ru/voit/db/test.php?" + 'star=' + star_raiting + '&1=' + theory + '&2=' + practic + '&3='
+                        + feedback + '&email=' + email_sat + '&num=' + name_sat + '&url=' + url_sat + '&tab_num=' + tab_num;
+                    request.open('GET', url, true);
+                    request.setRequestHeader('Content-Type', 'application/x-www-form-url');
+                    request.send();
+                    request.addEventListener("readystatechange", () => {
+                        location.href = next_sat;
+                    });
+                } else {
+                    location.href = next_sat;
+                }
+            };
+
+            function add_link_next_less() {
+                document.querySelector('.wrap_next_lesson').innerHTML = '<div class="next_lesson next_lesson_active">Следующий урок</div><div class="next_lesson_underline next_lesson_underline_active"></div>';
+            }
+            let url_sat  = window.location.href;
+            if (localStorage.getItem(url_sat)) {
+                add_link_next_less();
+                document.querySelector('.on_vointed').classList.remove('d_none');
+                document.querySelector('.next_lesson').addEventListener('click', request_send);
+            }
+
+            function activate_next_lesson(elem) {
+                let star_raiting = parseInt(document.querySelector('.rating-stars').style.width);
+                if (star_raiting > 0) {
+                    add_link_next_less();
+                    document.querySelector('.next_lesson').addEventListener('click', request_send);
+                }
+            }
+        }
+
+    </script>
